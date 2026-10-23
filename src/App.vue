@@ -87,9 +87,9 @@ onMounted(()=>{document.documentElement.lang=language.value;loadMenu();});
 :root{--muted:#5a625e;--surface:#ece7dc;--footer:#e8e0d0;--header:#f7f1e5f5;color:var(--ink);background:var(--ivory);color-scheme:light}
 :root[data-theme="dark"]{--ink:#f0e8d8;--ivory:#15252d;--gold:#d3ac5d;--terra:#e49a7e;--line:#d6e4df30;--muted:#bdc8c7;--surface:#1b303a;--footer:#102029;--header:#15252df5;color-scheme:dark}
 body{background:var(--ivory);color:var(--ink)}
-.header{background:var(--header)}.theme-toggle{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:42px;height:42px;padding:0;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ink)}.theme-toggle:hover{background:var(--surface)}
+:root .header{background:var(--header)}.theme-toggle{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:42px;height:42px;padding:0;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ink)}.theme-toggle:hover{background:var(--surface)}
 .header .brand img{width:112px;height:80px;object-fit:contain;mix-blend-mode:normal;background:transparent}.header .brand{gap:0}
-.menu-section{background:var(--surface)}footer{background:var(--footer)}
+:root .menu-section{background:var(--surface)}:root footer{background:var(--footer)}
 [data-theme="dark"] .brand img{filter:brightness(0) saturate(100%) invert(93%) sepia(12%) saturate(330%) hue-rotate(350deg)}
 [data-theme="dark"] .hero-copy>p,[data-theme="dark"] .hero-location,[data-theme="dark"] .section-index,[data-theme="dark"] .story-title>div>p,[data-theme="dark"] .photo-note,[data-theme="dark"] .menu-heading>p,[data-theme="dark"] .visit-layout>div>p,[data-theme="dark"] .visit-details p,[data-theme="dark"] .visit-details>div>span,[data-theme="dark"] .footer-bottom,[data-theme="dark"] .dish-copy>p,[data-theme="dark"] .dish-copy>small,[data-theme="dark"] .dish-card-top>span,[data-theme="dark"] .explorer-heading>span,[data-theme="dark"] .menu-bottom,[data-theme="dark"] .empty-result,[data-theme="dark"] .taste-card>div>span{color:var(--muted)}
 [data-theme="dark"] .search,[data-theme="dark"] .category-picker select,[data-theme="dark"] .menu-item.dish-card,[data-theme="dark"] .menu-chat,[data-theme="dark"] .inquiry-card,[data-theme="dark"] .mobile-dock{background:var(--ivory);border-color:var(--line)}
