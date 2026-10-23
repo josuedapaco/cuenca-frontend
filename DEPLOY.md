@@ -4,7 +4,7 @@
 
 Proyecto sugerido: cuenca. Servicios: backend y frontend.
 
-Ambos repositorios son privados: conecta GitHub con acceso a los dos. Rama main, Build Path / y Dockerfile Dockerfile. No pegues solo el Dockerfile en un servicio vacío: el build necesita todos los archivos del repositorio.
+Los repositorios se conectan desde GitHub: conecta GitHub con acceso a los dos. Rama main, Build Path / y Dockerfile Dockerfile. No pegues solo el Dockerfile en un servicio vacío: el build necesita todos los archivos del repositorio.
 
 ### Backend
 
@@ -83,3 +83,11 @@ El nombre de la foto de mariscos no fue confirmado: se muestra como foto general
 Conserva el volumen /app/data entre despliegues. Haz copias coherentes de SQLite con su API de backup o con el servicio detenido; no borres el volumen. La imagen corre como usuario UID 1000; si usas un montaje de carpeta, asegúrate de que tenga permisos para ese usuario.
 
 No se ha desplegado ni modificado DNS desde este proyecto: esta guía y los Dockerfiles permiten hacerlo en tu servidor.
+
+## Actualización de carta y asistente
+
+Desplegar backend y después frontend desde `main`. El frontend mantiene `BACKEND_HOST=apuestas-ec_backcuencany` y `BACKEND_PORT=84` en el proyecto `apuestas-ec`. Conservar el volumen `/app/data`. Pegar `OPENAI_API_KEY` exclusivamente en Environment de **backcuencany**, guardar y pulsar Deploy. `OPENAI_MODEL=gpt-4.1-mini` es opcional. No se necesita otra base de datos.
+
+Validar categorías, búsqueda, favoritos, navegación de las 32 páginas de toda la carta y cambio ES/EN. El chatbot debe mostrar indisponibilidad sin clave; con clave debe recomendar solo platos existentes y derivar consultas sobre alergias al teléfono. No envía pedidos.
+
+Referencias de diseño consultadas: [Dishoom](https://www.dishoom.com/menu/covent-garden-all-day/) (categorías y contexto de carta), [Sweetgreen](https://www.sweetgreen.com/menu) (tarjetas y grupos de platos), [Don Angie](https://www.donangie.com/menus/) (separación por familias). Se adaptó la organización, sin copiar textos ni imágenes.
