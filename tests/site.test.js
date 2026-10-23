@@ -13,28 +13,29 @@ beforeEach(()=>{
 });
 afterEach(()=>{wrapper?.unmount();vi.unstubAllGlobals();});
 const mountSite=()=>mount(App,{global:{stubs:{CuencaScene:true}}});
-it('renders all 191 dishes and filters accents in either language',async()=>{
+it('paginates the catalog and searches accents in either language',async()=>{
  wrapper=mountSite();await flushPromises();
- expect(wrapper.findAll('.menu-item')).toHaveLength(191);
+ expect(wrapper.findAll('.menu-item')).toHaveLength(6);
  await wrapper.find('input[type=search]').setValue('bolon');
  expect(wrapper.findAll('.menu-item')).toHaveLength(5);
  await wrapper.find('input[type=search]').setValue('shrimp');
- expect(wrapper.findAll('.menu-item').length).toBeGreaterThan(5);
+ expect(wrapper.findAll('.menu-item')).toHaveLength(6);
  await wrapper.find('.language').trigger('click');
  expect(wrapper.find('h1').text()).toContain('Some journeys');
  expect(document.documentElement.lang).toBe('en');
 });
 it('shows category-specific menu and keeps unknown prices uninvented',async()=>{
  wrapper=mountSite();await flushPromises();
- const seafood=wrapper.findAll('.category-tabs button').find(b=>b.text()==='Mariscos');
- await seafood.trigger('click');
- expect(wrapper.findAll('.menu-item')).toHaveLength(26);
+ await wrapper.find('#menu-category').setValue('seafood');
+ expect(wrapper.findAll('.menu-item')).toHaveLength(6);
+ for(let i=0;i<4;i++) await wrapper.findAll('.menu-pagination button')[1].trigger('click');
+ expect(wrapper.findAll('.menu-item')).toHaveLength(2);
  expect(wrapper.findAll('.ask-price')).toHaveLength(2);
 });
 it('uses the bundled full catalog when the API is temporarily unavailable',async()=>{
  fetch.mockImplementation(url=>url==='/api/menu'?response({},503):response(menu));
  wrapper=mountSite();await flushPromises();
- expect(wrapper.findAll('.menu-item')).toHaveLength(191);
+ expect(wrapper.findAll('.menu-item')).toHaveLength(6);
  expect(fetch).toHaveBeenCalledWith('/menu.json');
 });
 it('submits an inquiry to FastAPI and shows its reference, not an order confirmation',async()=>{
@@ -47,4 +48,37 @@ it('submits an inquiry to FastAPI and shows its reference, not an order confirma
  await form.trigger('submit');await flushPromises();
  expect(wrapper.find('.sent').text()).toContain('ABCD1234');
  expect(wrapper.find('.sent').text()).toContain('Esto no confirma una reserva ni un pedido.');
+});
+
+it('keeps every item reachable without rendering the full catalog',async()=>{
+ wrapper=mountSite();await flushPromises();
+ await wrapper.find('#menu-category').setValue('all');
+ const ids=new Set();
+ for(let n=0;n<32;n++){
+  for(const i of wrapper.findAll('.dish-card'))ids.add(i.attributes('id'));
+  if(n<31) await wrapper.findAll('.menu-pagination button')[1].trigger('click');
+ }
+ expect(ids.size).toBe(191);
+ expect(wrapper.findAll('.menu-pagination button')[1].attributes('disabled')).toBeDefined();
+ await wrapper.find('input[type=search]').setValue('bolon');
+ expect(wrapper.findAll('.menu-item')).toHaveLength(5);
+});
+it('saves a shortlist and renders only server-confirmed chat dish cards',async()=>{
+ fetch.mockImplementation(url=>url==='/api/chat'?response({message:'Estas opciones están en nuestra carta.',items:[menu.categories[0].items[0]]}):response(menu));
+ wrapper=mountSite();await flushPromises();
+ await wrapper.find('.dish-card-top button').trigger('click');
+ await wrapper.find('.shortlist-toggle').trigger('click');
+ expect(wrapper.findAll('.dish-card')).toHaveLength(1);
+ await wrapper.find('.menu-ai').trigger('click');
+ await wrapper.find('#chat-question').setValue('Algo para desayunar');
+ await wrapper.find('.menu-chat form').trigger('submit');await flushPromises();
+ expect(wrapper.find('.chat-dish').text()).toContain('Bolón mixto');
+ expect(fetch).toHaveBeenCalledWith('/api/chat',expect.objectContaining({method:'POST'}));
+});
+it('shows an honest unavailable message without fabricating an AI response',async()=>{
+ fetch.mockImplementation(url=>url==='/api/chat'?response({},503):response(menu));
+ wrapper=mountSite();await flushPromises();await wrapper.find('.menu-ai').trigger('click');
+ await wrapper.find('#chat-question').setValue('Recomienda pollo');await wrapper.find('.menu-chat form').trigger('submit');await flushPromises();
+ expect(wrapper.find('.menu-chat [role=alert]').text()).toContain('todavía no está disponible');
+ expect(wrapper.findAll('.chat-dish')).toHaveLength(0);
 });
