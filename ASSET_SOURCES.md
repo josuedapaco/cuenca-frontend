@@ -17,3 +17,11 @@ Las tres fotografías de alimentos señaladas por el dossier ya eran mejoras gen
 Los 141 platos numerados se transcribieron con nombres en español e inglés y precios. Se añadieron los seis combos, especial de almuerzo, bebidas, nueve batidos, siete helados y trece favoritos de la casa, para un total de 191. Precios ilegibles o no proporcionados permanecen sin valor.
 
 No se publica el dossier de trabajo completo ni información pendiente como hechos confirmados. El 3D se construye con geometría de Three.js: interpretación ilustrativa de las cúpulas de Cuenca, no una réplica de la fachada del restaurante.
+
+## Mejora editorial de octubre de 2026
+
+`chicken-v2.svg`, `seafood-v2.svg` y `colada-v2.svg` contienen fotografías raster WebP incrustadas, no ilustraciones vectoriales. Se editaron con la herramienta integrada de generación de imágenes, usando como referencia cada foto del dossier: mejorar iluminación, balance de blancos, detalle natural y suavidad del fondo; conservar plato, alimentos, porciones y objetos; sin añadir ingredientes ni texto. Son variaciones generativas, no garantía de presentación exacta. Los originales se conservan.
+
+Se usan archivos SVG autocontenidos para permitir publicación mediante el editor web de GitHub. Cada uno contiene únicamente una imagen raster, sin scripts ni recursos externos. En una futura actualización con transferencia binaria pueden sustituirse por WebP externos equivalentes.
+
+El modelo 3D y Three.js se retiraron de la experiencia.
