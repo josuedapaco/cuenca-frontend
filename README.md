@@ -17,10 +17,10 @@ Inicia el backend en http://127.0.0.1:8010. Vite redirige /api a ese puerto. npm
 
 ## Producción con Docker
 
-Dockerfile en la raíz del repositorio. Nginx escucha **8080**.
+Dockerfile en la raíz del repositorio. Nginx escucha **84**.
 
 - BACKEND_HOST: nombre DNS interno del servicio FastAPI, por ejemplo cuenca_backend en EasyPanel.
-- BACKEND_PORT: 8000.
+- BACKEND_PORT: 84.
 - El navegador usa /api en el mismo dominio; no requiere recompilar una URL de API.
 - GET /healthz comprueba Nginx. GET /api/health comprueba FastAPI.
 - El menú de public/menu.json permite consultar la carta si la API está temporalmente fuera de servicio. Las consultas de eventos necesitan el backend: nunca se simula un envío correcto.
@@ -33,7 +33,7 @@ Clona el backend en ../backend respecto de esta carpeta:
 docker compose up --build -d
 ~~~
 
-Abre http://localhost:8080. No ejecutes docker compose down -v si deseas conservar las consultas.
+Abre http://localhost:84. No ejecutes docker compose down -v si deseas conservar las consultas.
 
 La guía [DEPLOY.md](DEPLOY.md) detalla EasyPanel, DNS y HTTPS.
 

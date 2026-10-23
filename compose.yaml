@@ -3,7 +3,7 @@ services:
     build: ../backend
     environment:
       DATABASE_PATH: /app/data/cuenca.sqlite
-      PUBLIC_ORIGINS: https://cuencany.com,https://www.cuencany.com,http://localhost:8080
+      PUBLIC_ORIGINS: https://cuencany.com,https://www.cuencany.com,http://localhost:84
       ADMIN_API_KEY: ${ADMIN_API_KEY:-}
     volumes:
       - cuenca_data:/app/data
@@ -11,10 +11,10 @@ services:
   frontend:
     build: .
     ports:
-      - "8080:8080"
+      - "84:84"
     environment:
       BACKEND_HOST: backend
-      BACKEND_PORT: 8000
+      BACKEND_PORT: 84
     depends_on:
       backend:
         condition: service_healthy

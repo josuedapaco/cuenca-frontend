@@ -10,7 +10,7 @@ Ambos repositorios son privados: conecta GitHub con acceso a los dos. Rama main,
 
 Repositorio: josuedapaco/cuenca-backend
 
-- Puerto interno: **8000**
+- Puerto interno: **84**
 - Variable DATABASE_PATH=/app/data/cuenca.sqlite
 - Variable PUBLIC_ORIGINS=https://cuencany.com,https://www.cuencany.com
 - Variable ADMIN_API_KEY: genera una clave secreta y guárdala solo en EasyPanel.
@@ -28,9 +28,9 @@ python3 -c "import secrets; print(secrets.token_urlsafe(32))"
 
 Repositorio: josuedapaco/cuenca-frontend
 
-- Puerto interno: **8080**
+- Puerto interno: **84**
 - Variable BACKEND_HOST=cuenca_backend **si EasyPanel muestra ese nombre interno para tu servicio**.
-- Variable BACKEND_PORT=8000.
+- Variable BACKEND_PORT=84.
 - Usa el DNS interno real de EasyPanel si es diferente. No pongas https://, un puerto ni una barra en BACKEND_HOST.
 - Despliega después del backend.
 
@@ -47,8 +47,8 @@ Revisa registros A/AAAA anteriores para que no apunten a otro servidor.
 
 En **Domains** del frontend añade:
 
-- Host cuencany.com, HTTPS activado, destino HTTP al puerto **8080**.
-- Host www.cuencany.com, HTTPS activado, destino HTTP al puerto **8080**.
+- Host cuencany.com, HTTPS activado, destino HTTP al puerto **84**.
+- Host www.cuencany.com, HTTPS activado, destino HTTP al puerto **84**.
 
 Escribe únicamente el host en el campo de dominio: no https://cuencany.com/. EasyPanel gestiona el certificado y recibe tráfico público en 80/443.
 
