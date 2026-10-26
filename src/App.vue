@@ -1,6 +1,7 @@
 <script setup>
 import {ref,computed,onMounted,watch} from 'vue';
 import Arrow from './components/Arrow.vue';
+import Icon from './components/Icon.vue';
 import MenuExplorer from './components/MenuExplorer.vue';
 import {logoPng} from './brandAssets.js';
 let savedTheme=null;
@@ -42,7 +43,7 @@ onMounted(()=>{document.documentElement.lang=language.value;loadMenu();});
 <div class="announcement"><span class="flag-stripe" aria-hidden="true"></span>{{tr('Un pedacito de Ecuador y Colombia en Queens','A little piece of Ecuador & Colombia in Queens')}}<a href="tel:+17188474697">718.847.4697 <Arrow/></a></div>
 <header class="header">
  <a class="brand" href="#home" aria-label="Cuenca Coffee Shop home"><img :src="logoPng" width="120" height="96" alt="Cuenca Coffee Shop"><span class="sr-only">CUENCA COFFEE SHOP · WOODHAVEN</span></a>
- <button class="mobile-menu" @click="navOpen=!navOpen" :aria-expanded="navOpen" aria-controls="main-nav">{{tr('Menú','Explore')}} <span>{{navOpen?'−':'+'}}</span></button>
+ <button class="mobile-menu" @click="navOpen=!navOpen" :aria-expanded="navOpen" aria-controls="main-nav">{{tr('Menú','Explore')}} <Icon :name="navOpen?'minus':'plus'"/></button>
  <nav id="main-nav" :class="{open:navOpen}" :aria-label="tr('Navegación principal','Main navigation')" @click="navOpen=false"><a href="#story">{{tr('Nuestra casa','Our story')}}</a><a href="#menu">{{tr('La carta','The menu')}}</a><a href="#catering">{{tr('Celebraciones','Catering')}}</a><a href="#visit">{{tr('Visítanos','Find us')}}</a></nav>
  <div class="header-actions"><button class="theme-toggle" @click="toggleTheme" :aria-label="theme==='dark'?tr('Activar modo claro','Switch to light mode'):tr('Activar modo oscuro','Switch to dark mode')" :title="theme==='dark'?tr('Modo claro','Light mode'):tr('Modo oscuro','Dark mode')" :aria-pressed="theme==='dark'"><svg v-if="theme==='dark'" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg v-else width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z"/></svg></button><button class="language" @click="language=es?'en':'es'" :aria-label="es?'Switch to English':'Cambiar a español'">{{es?'EN':'ES'}}</button><a class="button small" href="tel:+17188474697">{{tr('Llámanos','Call us')}} <Arrow/></a></div>
 </header>
