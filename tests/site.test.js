@@ -21,7 +21,7 @@ it('paginates the catalog and searches accents in either language',async()=>{
  await wrapper.find('input[type=search]').setValue('shrimp');
  expect(wrapper.findAll('.menu-item')).toHaveLength(6);
  await wrapper.find('.language').trigger('click');
- expect(wrapper.find('h1').text()).toContain('Some journeys');
+ expect(wrapper.find('h1').text()).toContain('Ecuadorian cooking');
  expect(document.documentElement.lang).toBe('en');
 });
 it('shows category-specific menu and keeps unknown prices uninvented',async()=>{
@@ -81,4 +81,33 @@ it('shows an honest unavailable message without fabricating an AI response',asyn
  await wrapper.find('#chat-question').setValue('Recomienda pollo');await wrapper.find('.menu-chat form').trigger('submit');await flushPromises();
  expect(wrapper.find('.menu-chat [role=alert]').text()).toContain('todavía no está disponible');
  expect(wrapper.findAll('.chat-dish')).toHaveLength(0);
+});
+
+it('opens each featured food in the menu after clearing other filters',async()=>{
+ wrapper=mountSite();await flushPromises();
+ for(const link of wrapper.findAll('.food-link')){
+  await wrapper.find('input[type=search]').setValue('no-match');
+  await wrapper.find('.shortlist-toggle').trigger('click');
+  const hash=link.attributes('href');
+  window.location.hash=hash;
+  window.dispatchEvent(new Event('hashchange'));
+  await flushPromises();
+  expect(wrapper.find(hash).exists()).toBe(true);
+  expect(wrapper.find('input[type=search]').element.value).toBe('');
+  expect(wrapper.find('.shortlist-toggle').attributes('aria-pressed')).toBe('false');
+ }
+ window.location.hash='';
+});
+it('opens a linked dish when the catalog finishes loading',async()=>{
+ window.location.hash='#dish-favorites-9';
+ wrapper=mountSite();await flushPromises();
+ expect(wrapper.find('#dish-favorites-9').text()).toContain('Colada morada');
+ window.location.hash='';
+});
+
+it('links the footer credit to GOZSYL',async()=>{
+ wrapper=mountSite();await flushPromises();
+ const credit=wrapper.find('footer .powered-by');
+ expect(credit.text()).toBe('Powered by GOZSYL');
+ expect(credit.attributes('href')).toBe('https://gozsyl.cloud');
 });

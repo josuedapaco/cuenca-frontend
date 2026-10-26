@@ -1,5 +1,5 @@
 <script setup>
-import {computed,ref,watch,nextTick} from 'vue';
+import {computed,ref,watch,nextTick,onMounted,onBeforeUnmount} from 'vue';
 import Icon from './Icon.vue';
 const props=defineProps({menu:Object,language:String,error:Boolean});
 const es=computed(()=>props.language==='es');
@@ -20,6 +20,21 @@ watch([category,search,savedOnly],()=>{page.value=1;});
 watch(saved,()=>{if(page.value>pages.value)page.value=pages.value;});
 function toggle(id){saved.value=saved.value.includes(id)?saved.value.filter(x=>x!==id):[...saved.value,id];}
 function turn(delta){page.value+=delta;document.getElementById('dish-grid')?.focus({preventScroll:true});}
+async function revealLinkedDish(){
+ const id=window.location.hash.slice(1);
+ if(!id.startsWith('dish-'))return;
+ const item=all.value.find(i=>'dish-'+i.id===id);
+ if(!item)return;
+ category.value=item.category;search.value='';savedOnly.value=false;
+ await nextTick();
+ page.value=Math.floor(filtered.value.findIndex(i=>i.id===item.id)/6)+1;
+ await nextTick();
+ const card=document.getElementById(id);
+ card?.scrollIntoView({block:'start'});card?.focus({preventScroll:true});
+}
+watch(()=>props.menu,revealLinkedDish);
+onMounted(()=>{window.addEventListener('hashchange',revealLinkedDish);revealLinkedDish();});
+onBeforeUnmount(()=>window.removeEventListener('hashchange',revealLinkedDish));
 const chatOpen=ref(false),question=ref(''),busy=ref(false),chatError=ref(''),messages=ref([]),chatInput=ref(null),chatLog=ref(null);
 const starters=computed(()=>es.value?['Algo ecuatoriano por menos de $20','¿Qué puedo desayunar?','Me apetece mariscos']:['Ecuadorian food under $20','What can I have for breakfast?','I feel like seafood']);
 async function openChat(){chatOpen.value=true;await nextTick();chatInput.value?.focus();}
@@ -44,7 +59,7 @@ async function ask(text=question.value){
  <p v-if="!menu&&!error" role="status">{{tr('Preparando la carta…','Loading the menu…')}}</p><p v-if="error" role="alert">{{tr('No pudimos cargar la carta. Llámanos al 718.847.4697.','We could not load the menu. Call 718.847.4697.')}}</p>
  <div class="explorer-heading"><h3>{{title}}</h3><span role="status" aria-live="polite">{{filtered.length}} {{tr('opciones','options')}} · {{tr('Página','Page')}} {{page}} / {{pages}}</span></div>
  <div id="dish-grid" class="dish-grid" tabindex="-1">
-  <article v-for="item in visible" :key="item.id" class="menu-item dish-card" :id="'dish-'+item.id"><div class="dish-card-top"><span>{{item.number?'Nº '+item.number:item.category_name}}</span><button :aria-label="(saved.includes(item.id)?tr('Quitar de mis antojos: ','Remove from shortlist: '):tr('Guardar: ','Save: '))+name(item)" :aria-pressed="saved.includes(item.id)" @click="toggle(item.id)"><Icon name="heart" :filled="saved.includes(item.id)"/></button></div><div class="dish-copy"><h4>{{name(item)}}</h4><p>{{es?item.name_en:item.name_es}}</p><small v-if="item.note_es">{{es?item.note_es:item.note_en}}</small></div><div class="dish-price"><span v-for="p in item.prices" :key="p.size">{{price(p)}}</span><span v-if="!item.prices.length" class="ask-price">{{tr('Consultar precio','Ask for price')}}</span></div></article>
+  <article v-for="item in visible" :key="item.id" class="menu-item dish-card" tabindex="-1" :id="'dish-'+item.id"><div class="dish-card-top"><span>{{item.number?'Nº '+item.number:item.category_name}}</span><button :aria-label="(saved.includes(item.id)?tr('Quitar de mis antojos: ','Remove from shortlist: '):tr('Guardar: ','Save: '))+name(item)" :aria-pressed="saved.includes(item.id)" @click="toggle(item.id)"><Icon name="heart" :filled="saved.includes(item.id)"/></button></div><div class="dish-copy"><h4>{{name(item)}}</h4><p>{{es?item.name_en:item.name_es}}</p><small v-if="item.note_es">{{es?item.note_es:item.note_en}}</small></div><div class="dish-price"><span v-for="p in item.prices" :key="p.size">{{price(p)}}</span><span v-if="!item.prices.length" class="ask-price">{{tr('Consultar precio','Ask for price')}}</span></div></article>
  </div>
  <div v-if="menu&&!filtered.length" class="empty-result"><h4>{{tr('Todavía no hay platos aquí.','No dishes here yet.')}}</h4><p>{{savedOnly?tr('Toca el corazón de un plato para guardarlo durante tu visita.','Tap a dish’s heart to save it during your visit.'):tr('Prueba otro nombre o explora una categoría.','Try another name or explore a category.')}}</p><button @click="search='';savedOnly=false;category='all'">{{tr('Explorar la carta','Explore the menu')}}</button></div>
  <nav v-if="filtered.length" class="menu-pagination" :aria-label="tr('Páginas del menú','Menu pages')"><button @click="turn(-1)" :disabled="page===1"><Icon name="left"/> {{tr('Anterior','Previous')}}</button><span>{{tr('Viendo','Showing')}} {{(page-1)*6+1}}–{{Math.min(page*6,filtered.length)}} / {{filtered.length}}</span><button @click="turn(1)" :disabled="page===pages">{{tr('Siguiente','Next')}} <Icon name="right"/></button></nav>
