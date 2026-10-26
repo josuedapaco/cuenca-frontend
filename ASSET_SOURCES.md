@@ -25,3 +25,10 @@ No se publica el dossier de trabajo completo ni información pendiente como hech
 Se usan archivos SVG autocontenidos para permitir publicación mediante el editor web de GitHub. Cada uno contiene únicamente una imagen raster, sin scripts ni recursos externos. En una futura actualización con transferencia binaria pueden sustituirse por WebP externos equivalentes.
 
 El modelo 3D y Three.js se retiraron de la experiencia.
+
+## Fotografías proporcionadas el 26 de octubre de 2026
+
+- `images/restaurant-facade.jpg`: fotografía de la fachada adjunta por el propietario (`92B8546A-2D51-4FA2-BBFE-66A2F62EC581.PNG`), utilizada en la sección de visita.
+- `images/house-plate.jpg`: fotografía del plato adjunta por el propietario (`4CB0DDFB-9133-4ADA-9728-2E53F29B7EAD.PNG`), utilizada en portada y primera tarjeta de la galería.
+
+Ambas se convirtieron a JPEG con calidad 85 para reducir el peso, conservando sus dimensiones y contenido.
