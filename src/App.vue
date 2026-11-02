@@ -71,7 +71,6 @@ onMounted(()=>{document.documentElement.lang=language.value;loadMenu();});
    <div class="featured-dish-caption"><div><span>{{tr('PLATO N.º ','DISH NO. ')}}{{dish.id}} · {{tr('PLATOS ECUATORIANOS','ECUADORIAN CLASSICS')}}</span><h3>{{es?dish.es:dish.en}}</h3></div><a class="text-link" :href="'#dish-'+dish.id" @click="revisitDish" :aria-label="tr('Ver en la carta: ','View on the menu: ')+(es?dish.es:dish.en)">{{tr('Ver en la carta','View on the menu')}} <Arrow/></a></div>
   </article>
  </div>
- <p class="photo-note">{{tr('Fotografías del dossier del restaurante; algunas imágenes de platos incluyen mejoras generativas. Consulta la presentación y disponibilidad actual.','Photos from the restaurant dossier; some food images include generative enhancements. Ask about current presentation and availability.')}}</p>
 </section>
 <section class="menu-section section" id="menu">
  <div class="section-index">02 — {{tr('UN RECORRIDO POR NUESTRA CARTA','A JOURNEY THROUGH OUR MENU')}}</div>
