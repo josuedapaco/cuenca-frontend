@@ -33,5 +33,5 @@ watch(()=>props.page,focusTitle);
 </main>
 </template>
 <style>
-.legal-page{max-width:960px;margin:auto;min-height:65vh}.legal-page h1{font-size:clamp(34px,6vw,62px);margin-bottom:18px;scroll-margin-top:120px}.legal-page h2{font-size:25px;letter-spacing:normal;margin:32px 0 12px}.legal-page p{font-size:16px;line-height:1.85;color:var(--muted)}.legal-page .legal-updated{font-size:13px}.legal-page p a{text-decoration:underline}
+.legal-page{max-width:960px;margin:auto;min-height:65vh}.legal-page h1{font-size:clamp(34px,6vw,62px);margin-bottom:18px;scroll-margin-top:120px}.legal-page h2{font-size:25px;letter-spacing:normal;margin:32px 0 12px}.legal-page p{font-size:18px;line-height:1.85;color:var(--muted)}.legal-page .legal-updated{font-size:15px}.legal-page p a{text-decoration:underline}
 </style>
