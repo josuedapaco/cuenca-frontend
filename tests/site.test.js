@@ -111,3 +111,20 @@ it('links the footer credit to GOZSYL',async()=>{
  expect(credit.text()).toBe('Powered by GOZSYL');
  expect(credit.attributes('href')).toBe('https://gozsyl.cloud');
 });
+
+it('keeps photos outside menu entries and links the gallery to the correct dishes',async()=>{
+ wrapper=mountSite();await flushPromises();
+ const gallery=wrapper.find('.menu-gallery');
+ const expected=[['42','Hornado ecuatoriano'],['36','Bandera'],['12','Bistec de carne con bolón mixto'],['64','Ceviche de concha negra'],['favorites-9','Colada morada']];
+ expect(gallery.findAll('.gallery-dish')).toHaveLength(expected.length);
+ for(const [id,label] of expected){
+  const link=gallery.find('a[href="#dish-'+id+'"]');
+  expect(link.text()).toContain(label);
+  window.location.hash=link.attributes('href');
+  window.dispatchEvent(new Event('hashchange'));
+  await flushPromises();
+  expect(wrapper.find('#dish-'+id+' h4').text()).toBe(label);
+  expect(wrapper.findAll('.dish-card img')).toHaveLength(0);
+ }
+ window.location.hash='';
+});

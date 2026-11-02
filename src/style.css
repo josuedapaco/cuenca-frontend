@@ -43,12 +43,50 @@ footer{padding:60px 5% 25px;background:#e8e0d0;border-top:1px solid var(--line)}
  .explorer-heading>span{max-width:none}
 }
 
-/* Photographed Ecuadorian dishes link directly to their menu entries. */
-.featured-dishes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:48px}
-.featured-dish{min-width:0}
-.featured-dish img{width:100%;height:auto;aspect-ratio:3/2;border-radius:8px}
-.featured-dish-caption{display:flex;justify-content:space-between;align-items:start;gap:20px;padding-top:20px;flex-wrap:wrap}
-.featured-dish-caption span{font-size:13px;letter-spacing:.06em;color:var(--muted);line-height:1.6}
-.featured-dish-caption h3{font-size:clamp(26px,3vw,36px);line-height:1.2;margin-top:8px}
-.dish-card-photo{width:100%;height:auto;aspect-ratio:3/2;border-radius:4px}
-@media(max-width:600px){.featured-dishes{grid-template-columns:1fr;gap:32px;margin-top:32px}.featured-dish-caption{gap:10px}}
+/* Menu first, with a compact photographic guide alongside it. */
+.menu-and-gallery{display:grid;grid-template-columns:minmax(0,2.4fr) minmax(260px,1fr);gap:clamp(24px,3vw,48px);align-items:start}
+.menu-primary{min-width:0;background:var(--ivory);padding:clamp(18px,2vw,30px);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 35px #132f4308;scroll-margin-top:120px}
+.menu-primary .dish-grid{grid-template-columns:repeat(2,minmax(0,1fr));min-height:0;gap:0 24px}
+.menu-primary .menu-item.dish-card{background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:20px 0;min-height:180px;gap:12px}
+.menu-primary .dish-card:target{background:var(--surface);outline:2px solid var(--terra);outline-offset:6px;box-shadow:none}
+.menu-primary .menu-toolbar .search{flex-basis:100%;min-width:0}
+.menu-primary .menu-toolbar>.button,.menu-primary .shortlist-toggle{flex:1;font-size:14px;gap:8px;justify-content:center;padding:12px}
+.menu-primary .category-picker{align-items:stretch;gap:12px}
+.menu-primary .category-picker>label{width:100%}
+.menu-primary .category-picker select{width:100%}
+.menu-primary .category-picker .category-tabs{flex-basis:100%;min-width:0}
+.menu-primary .category-tabs button{font-size:13px}
+.menu-gallery{min-width:0;position:sticky;top:120px}
+.menu-gallery-heading{margin-bottom:20px}
+.menu-gallery-heading>span{font-size:12px;letter-spacing:.12em;color:var(--terra);font-weight:600}
+.menu-gallery-heading h3{font-size:28px;line-height:1.2;margin:10px 0}
+.menu-gallery-heading p{font-size:14px;color:var(--muted);line-height:1.6}
+.menu-gallery-track{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 12px}
+.gallery-dish{min-width:0;border-radius:8px;transition:transform .2s}
+.gallery-dish:hover{transform:translateY(-3px)}
+.gallery-dish img{width:100%;height:auto;aspect-ratio:3/2;border-radius:6px;object-fit:cover}
+.gallery-dish:first-child{grid-column:1/-1}
+.gallery-dish-caption{padding-top:10px}
+.gallery-dish-caption>span:first-child{font-size:11px;color:var(--muted);letter-spacing:.04em;line-height:1.5}
+.gallery-dish-caption h4{font-size:15px;font-weight:600;line-height:1.4;margin:4px 0}
+.gallery-dish-action{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--terra);line-height:1.6}
+.gallery-dish-action svg{width:14px;height:14px}
+@media(max-width:1000px){
+ .menu-and-gallery{grid-template-columns:minmax(0,1fr)}
+ .menu-gallery{position:static}
+ .menu-gallery-track{display:flex;overflow-x:auto;gap:16px;padding:4px 4px 16px;scroll-snap-type:x mandatory;scroll-padding-inline:4px;scrollbar-width:thin}
+ .gallery-dish{flex:0 0 220px;scroll-snap-align:start}
+ .gallery-dish-caption h4{font-size:17px}
+ .gallery-dish-caption>span:first-child,.gallery-dish-action{font-size:13px}
+}
+@media(max-width:600px){
+ .menu-primary{padding:18px 14px}
+ .menu-primary .dish-grid{grid-template-columns:1fr}
+ .menu-primary .menu-item.dish-card{min-height:0;padding-block:20px}
+ .menu-primary .dish-card .dish-copy h4{font-size:23px}
+ .menu-primary .explorer-heading h3{font-size:28px}
+ .menu-primary .menu-toolbar{gap:10px}
+ .menu-primary .menu-toolbar>.button,.menu-primary .shortlist-toggle{flex-basis:100%;min-height:44px}
+ .gallery-dish{flex-basis:74%;max-width:300px}
+ .menu-gallery-heading h3{font-size:26px}
+}
