@@ -4,6 +4,7 @@ import Arrow from './components/Arrow.vue';
 import Icon from './components/Icon.vue';
 import MenuExplorer from './components/MenuExplorer.vue';
 import LegalPage from './components/LegalPage.vue';
+const photographedDishes=[{id:'42',image:'hornado-edited-v1',es:'Hornado ecuatoriano',en:'Ecuadorian roast pork'},{id:'36',image:'bandera-edited-v1',es:'Bandera',en:'Ecuadorian combination platter'}];
 const legalPage=ref('');
 function syncLegalPage(){legalPage.value=({'#condiciones-del-servicio':'terms','#politica-de-privacidad':'privacy'})[window.location.hash]||'';}
 syncLegalPage();
@@ -64,6 +65,12 @@ onMounted(()=>{document.documentElement.lang=language.value;loadMenu();});
  <div class="section-index">01 — {{tr('NUESTRAS RAÍCES','OUR ROOTS')}}</div>
  <div class="story-title"><h2>{{tr('De nuestra tierra,','From our roots,')}}<br><em>{{tr('para todo el mundo.','for the whole world.')}}</em></h2><div><p>{{tr('En Cuenca Coffee Shop compartimos los sabores de Ecuador y Colombia en Woodhaven, Nueva York. Desde un bolón por la mañana hasta un encebollado o una bandeja colombiana: aquí siempre hay una nueva historia que probar.','At Cuenca Coffee Shop, we share the flavors of Ecuador and Colombia in Woodhaven, New York. From a morning bolón to encebollado or a Colombian platter, there is always a new story to taste.')}}</p><a class="text-link" href="#menu">{{tr('Encuentra tu próximo favorito','Find your next favorite')}} <Arrow/></a></div></div>
  <div class="taste-grid"><article class="taste-card first"><a class="food-link" @click="revisitDish" href="#dish-12"><img src="/images/house-plate.jpg" width="1448" height="1086" loading="lazy" :alt="tr('Plato de carne encebollada con huevos y bolón','Beef with onions, eggs and a plantain ball')"></a><div><span>01 / {{tr('TRADICIÓN','TRADITION')}}</span><h3>{{tr('Carne, huevos y bolón.','Beef, eggs & plantain.')}}</h3></div></article><article class="taste-card second"><a class="food-link" @click="revisitDish" href="#dish-71"><img src="/images/seafood-v2.svg" width="640" height="338" loading="lazy" :alt="tr('Plato de mariscos con hierbas y arroz blanco aparte','Seafood with herbs and a side of white rice')"></a><div><span>02 / {{tr('COSTA','COAST')}}</span><h3>{{tr('Mariscos de la casa.','Seafood from our kitchen.')}}</h3></div></article><article class="taste-card third"><a class="food-link" @click="revisitDish" href="#dish-favorites-9"><img src="/images/colada-v2.svg" width="640" height="338" loading="lazy" :alt="tr('Colada morada ecuatoriana','Ecuadorian colada morada')"></a><div><span>03 / {{tr('MEMORIA','MEMORIES')}}</span><h3>{{tr('Colada morada.','Colada morada.')}}</h3></div></article></div>
+ <div class="featured-dishes">
+  <article v-for="dish in photographedDishes" :key="dish.id" class="featured-dish">
+   <a class="food-link" :href="'#dish-'+dish.id" @click="revisitDish"><img :src="'/images/'+dish.image+'.jpg'" width="1536" height="1024" loading="lazy" :alt="es?dish.es:dish.en"></a>
+   <div class="featured-dish-caption"><div><span>{{tr('PLATO N.º ','DISH NO. ')}}{{dish.id}} · {{tr('PLATOS ECUATORIANOS','ECUADORIAN CLASSICS')}}</span><h3>{{es?dish.es:dish.en}}</h3></div><a class="text-link" :href="'#dish-'+dish.id" @click="revisitDish" :aria-label="tr('Ver en la carta: ','View on the menu: ')+(es?dish.es:dish.en)">{{tr('Ver en la carta','View on the menu')}} <Arrow/></a></div>
+  </article>
+ </div>
  <p class="photo-note">{{tr('Fotografías del dossier del restaurante; algunas imágenes de platos incluyen mejoras generativas. Consulta la presentación y disponibilidad actual.','Photos from the restaurant dossier; some food images include generative enhancements. Ask about current presentation and availability.')}}</p>
 </section>
 <section class="menu-section section" id="menu">

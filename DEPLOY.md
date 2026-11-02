@@ -91,3 +91,18 @@ Desplegar backend y después frontend desde `main`. El frontend mantiene `BACKEN
 Validar categorías, búsqueda, favoritos, navegación de las 32 páginas de toda la carta y cambio ES/EN. El chatbot debe mostrar indisponibilidad sin clave; con clave debe recomendar solo platos existentes y derivar consultas sobre alergias al teléfono. No envía pedidos.
 
 Referencias de diseño consultadas: [Dishoom](https://www.dishoom.com/menu/covent-garden-all-day/) (categorías y contexto de carta), [Sweetgreen](https://www.sweetgreen.com/menu) (tarjetas y grupos de platos), [Don Angie](https://www.donangie.com/menus/) (separación por familias). Se adaptó la organización, sin copiar textos ni imágenes.
+
+## Visibilidad en Google
+
+El HTML incluye nombre, dirección y teléfono, URL canónica y datos estructurados Restaurant y WebSite. No publicar horarios, reseñas ni puntuaciones sin datos verificados. El sitemap está en https://cuencany.com/sitemap.xml y robots.txt permite rastrear la web.
+
+Después de desplegar:
+
+1. Verificar la propiedad de dominio cuencany.com en Google Search Console mediante el registro DNS que proporcione Google.
+2. Enviar https://cuencany.com/sitemap.xml en Sitemaps.
+3. Inspeccionar https://cuencany.com/ y solicitar indexación. Revisar el HTML renderizado y el estado de indexación.
+4. Validar la URL con https://search.google.com/test/rich-results.
+5. En la ficha verificada de Google Business Profile, establecer https://cuencany.com/ como sitio web y comprobar que nombre, dirección y teléfono coincidan con el restaurante.
+6. Comprobar que las variantes HTTP y www redirijan permanentemente a https://cuencany.com/ en el proveedor del dominio o EasyPanel.
+
+La indexación y la posición dependen de Google; estos cambios no garantizan el primer resultado. La verificación DNS y la gestión de la ficha requieren acceso a las cuentas del propietario.

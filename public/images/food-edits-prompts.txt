@@ -1,0 +1,2 @@
+Tool: built-in image_gen
+Hornado and bandera: change camera viewpoint to a natural three-quarter angle, preserving ingredients, portions and arrangement. Replace only the kitchen counter background with reddish varnished wood and a terracotta brick strip matching the supplied restaurant photo. No added ingredients, props, text or collage.

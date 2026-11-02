@@ -42,3 +42,13 @@ footer{padding:60px 5% 25px;background:#e8e0d0;border-top:1px solid var(--line)}
  .explorer-heading{flex-wrap:wrap}
  .explorer-heading>span{max-width:none}
 }
+
+/* Photographed Ecuadorian dishes link directly to their menu entries. */
+.featured-dishes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:48px}
+.featured-dish{min-width:0}
+.featured-dish img{width:100%;height:auto;aspect-ratio:3/2;border-radius:8px}
+.featured-dish-caption{display:flex;justify-content:space-between;align-items:start;gap:20px;padding-top:20px;flex-wrap:wrap}
+.featured-dish-caption span{font-size:13px;letter-spacing:.06em;color:var(--muted);line-height:1.6}
+.featured-dish-caption h3{font-size:clamp(26px,3vw,36px);line-height:1.2;margin-top:8px}
+.dish-card-photo{width:100%;height:auto;aspect-ratio:3/2;border-radius:4px}
+@media(max-width:600px){.featured-dishes{grid-template-columns:1fr;gap:32px;margin-top:32px}.featured-dish-caption{gap:10px}}

@@ -32,3 +32,7 @@ El modelo 3D y Three.js se retiraron de la experiencia.
 - `images/house-plate.jpg`: fotografía del plato adjunta por el propietario (`4CB0DDFB-9133-4ADA-9728-2E53F29B7EAD.PNG`), utilizada en portada y primera tarjeta de la galería.
 
 Ambas se convirtieron a JPEG con calidad 85 para reducir el peso, conservando sus dimensiones y contenido.
+
+## Hornado y bandera · 2 de noviembre de 2026
+
+Fotografías aportadas por el propietario: hornado ecuatoriano (plato 42) y bandera (plato 36). Edición con image_gen para modificar el ángulo y sustituir el fondo por la mesa rojiza y ladrillo de la referencia proporcionada. Las ediciones generativas pueden introducir variaciones de detalle. PNG de edición conservados como `hornado-edited-v1.png` y `bandera-edited-v1.png`; copias JPEG calidad 85 para la galería y las tarjetas de la carta. Los enlaces llevan a los identificadores del catálogo, sin alterar nombres ni precios.
